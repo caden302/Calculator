@@ -1,0 +1,99 @@
+package edu.jsu.mcis.cs408.calculator;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import edu.jsu.mcis.cs408.calculator.databinding.ActivityMainBinding;
+public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        initLayout();
+    }
+
+    private void initLayout(){
+        ConstraintLayout layout = binding.main;
+        String[] btnNames = getResources().getStringArray(R.array.btnNames);
+        String[] btnText = getResources().getStringArray(R.array.btnText);
+        int[] btnIds = new int [19];
+        final int KEY_HEIGHT = 4;
+        final int KEY_WIDTH = 4;
+
+        TextView output = new TextView(this);
+        output.setText('0');
+        output.setId(View.generateViewId());
+        output.setTag("output");
+
+        for(int i = 0; i < btnNames.length; ++i){
+            int id = View.generateViewId();
+            Button btn = new Button(this);
+            btn.setId(id);
+            btn.setText(btnText[i]);
+            btn.setTag(btnNames[i]);
+            layout.addView(btn);
+            btnIds[i] = id;
+        }
+
+        ConstraintSet set = new ConstraintSet();
+        set.clone(layout);
+        
+        set.applyTo(layout);
+    }
+}
+
+<string-array name="btnText">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>C</item>
+        <item>=</item>
+        <item>+</item>
+        <item>-</item>
+        <item>\u00D7</item>
+        <item>\u00F7</item>
+        <item>%</item>
+        <item>\u221A</item>
+        <item>\u00B1</item>
+    </string-array>
+
+    <string-array name="btnNames">
+        <item>btn0</item>
+        <item>btn1</item>
+        <item>btn2</item>
+        <item>btn3</item>
+        <item>btn4</item>
+        <item>btn5</item>
+        <item>btn6</item>
+        <item>btn7</item>
+        <item>btn8</item>
+        <item>btn9</item>
+        <item>btnclear</item>
+        <item>btnequals</item>
+        <item>btnplus</item>
+        <item>btnminus</item>
+        <item>btnmultiply</item>
+        <item>btndivide</item>
+        <item>btnpercentage</item>
+        <item>btnsqrt</item>
+        <item>btndecimal</item>
+        <item>btnsign</item>
+    </string-array>
